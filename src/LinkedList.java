@@ -13,6 +13,7 @@ public class LinkedList {
     /* method to create a simple linked list with 3 nodes*/
     public static void main(String[] args) 
     { 
+    	System.out.println("linkedList start");
         /* Start with the empty list. */
         LinkedList llist = new LinkedList(); 
   
