@@ -1,59 +1,120 @@
 
 public class LinkedList { 
     Node head;  // head of list 
+    int size = 0;   //side of list
   
     /* Linked list Node.  This inner class is made static so that 
        main() can access it */
     static class Node { 
-        int data; 
+        String name;
+		String city;
+        String state;
         Node next; 
-        Node(int d)  { data = d;  next=null; } // Constructor 
+        
+        Node()  { 
+        	name = null;
+        	city = null;
+        	state = null;
+        	next = null;
+        }  
+        
+        Node(String n, String c, String s) {
+        	name = n;
+        	city = c;
+        	state = s;
+        	next = null;
+        }
+        
     } 
-  
-    /* method to create a simple linked list with 3 nodes*/
+    
+    //
+    //Linked List class Methods
+    //
+    
+    public String getCity() {
+		return head.city;
+	}
+
+	public void setCity(String city) {
+		head.city = city;
+	}
+
+	public String getState() {
+		return head.state;
+	}
+
+	public void setState(String state) {
+		head.state = state;
+	}
+
+	public Node getNext() {
+		return head.next;
+	}
+
+	public void setNext(Node next) {
+		head.next = next;
+	}
+    
+    public String getName() {
+		return head.name;
+	}
+
+	public void setName(String name) {
+		head.name = name;
+	}
+    
+    public void addFirst(Node next) {
+		head = next;
+		size++;
+	}
+	
+	public void appendToList(Node next) {
+		if (head == null)
+			addFirst(next);
+		else {
+			Node temp = head;
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = next;
+			size++;
+		}
+	}
+	
+	public boolean hasNext() {
+		return (head.next != null);
+	}
+	
+	public int size() {
+        return size;
+    }
+	
+    /* 
+     * main method to test out the linked list
+     * 
+     */
     public static void main(String[] args) 
     { 
-    	System.out.println("linkedList start");
-        /* Start with the empty list. */
         LinkedList llist = new LinkedList(); 
   
-        llist.head  = new Node(1); 
-        Node second = new Node(2); 
-        Node third  = new Node(3); 
-  
-        /* Three nodes have been allocated  dynamically. 
-          We have refernces to these three blocks as first,   
-          second and third 
-  
-          llist.head        second              third 
-             |                |                  | 
-             |                |                  | 
-         +----+------+     +----+------+     +----+------+ 
-         | 1  | null |     | 2  | null |     |  3 | null | 
-         +----+------+     +----+------+     +----+------+ */
-  
-        llist.head.next = second; // Link first node with the second node 
-  
-        /*  Now next of first Node refers to second.  So they 
-            both are linked. 
-  
-         llist.head        second              third 
-            |                |                  | 
-            |                |                  | 
-        +----+------+     +----+------+     +----+------+ 
-        | 1  |  o-------->| 2  | null |     |  3 | null | 
-        +----+------+     +----+------+     +----+------+ */
-  
-        second.next = third; // Link second node with the third node 
-  
-        /*  Now next of second Node refers to third.  So all three 
-            nodes are linked. 
-  
-         llist.head        second              third 
-            |                |                  | 
-            |                |                  | 
-        +----+------+     +----+------+     +----+------+ 
-        | 1  |  o-------->| 2  |  o-------->|  3 | null | 
-        +----+------+     +----+------+     +----+------+ */
+        //add ten items to the list
+        for (int i=1; i < 11; i++) {
+        	Node temp = new Node("person"+i,"city"+i,"state"+i); 
+        	llist.appendToList(temp);
+        }
+        
+        //print the list
+        LinkedList temp = llist;
+        for (int i=0; i < llist.size(); i++) {
+        	System.out.println(temp.getName());
+        	temp.head = temp.getNext();
+        }
+        
+        /*boolean go = (temp != null);
+        while (go) {
+        	System.out.println(temp.getName());
+        	temp.head = temp.getNext();
+        	if (temp.head == null) go = false;
+        }*/
     } 
 } 
